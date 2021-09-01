@@ -1,0 +1,59 @@
+ingress:
+  enabled: true
+  path: /
+  hosts:
+    - grafana.home
+
+adminPassword: admin
+image:
+  tag: 8.1.2
+
+persistence:
+  enabled: true
+  storageClassName: local-path
+  size: 2Gi
+
+datasources:
+ datasources.yaml:
+   apiVersion: 1
+   datasources:
+   - name: Prometheus
+     type: prometheus
+     url: http://prometheus.home
+     isDefault: true
+
+dashboardProviders:
+  dashboardproviders.yaml:
+    apiVersion: 1
+    providers:
+    - name: 'default'
+      orgId: 1
+      folder: ''
+      type: file
+      disableDeletion: false
+      editable: true
+      options:
+         path: /var/lib/grafana/dashboards/default
+
+dashboards:
+  default:
+    prometheus-stats:
+      gnetId: 2
+      revision: 2
+      datasource: Prometheus
+    speed-test:
+      gnetId: 14336
+      revision: 2
+      datasource: Prometheus
+    node-exporter:
+      gnetId: 10242
+      revision: 1
+      datasource: Prometheus
+    traefik:
+      gnetId: 4475
+      revision: 5
+      datasource: Prometheus
+    pop-metrics:
+      gnetId: 747
+      revision: 2
+      datasource: Prometheus

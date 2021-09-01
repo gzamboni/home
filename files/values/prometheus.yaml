@@ -1,0 +1,27 @@
+pushgateway:
+  enabled: false
+
+server:
+  ingress:
+    enabled: true
+    hosts:
+      - prometheus.home
+  image:
+    tag: latest
+  nodeSelector:
+    kubernetes.io/hostname: "zberry"
+  persistentVolume:
+    enabled: true
+
+extraScrapeConfigs: |
+  - job_name: 'speedtest'
+    scrape_interval: 60m
+    scrape_timeout:  60s
+    static_configs:
+      - targets: ['speedtest-exporter:9090']
+
+alertmanager:
+  enabled: true
+  persistentVolume:
+    enabled: true
+
