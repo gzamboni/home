@@ -14,26 +14,26 @@ persistence:
   size: 2Gi
 
 datasources:
- datasources.yaml:
-   apiVersion: 1
-   datasources:
-   - name: Prometheus
-     type: prometheus
-     url: http://prometheus.home
-     isDefault: true
+  datasources.yaml:
+    apiVersion: 1
+    datasources:
+      - name: Prometheus
+        type: prometheus
+        url: http://prometheus.home
+        isDefault: true
 
 dashboardProviders:
   dashboardproviders.yaml:
     apiVersion: 1
     providers:
-    - name: 'default'
-      orgId: 1
-      folder: ''
-      type: file
-      disableDeletion: false
-      editable: true
-      options:
-         path: /var/lib/grafana/dashboards/default
+      - name: "default"
+        orgId: 1
+        folder: ""
+        type: file
+        disableDeletion: false
+        editable: true
+        options:
+          path: /var/lib/grafana/dashboards/default
 
 dashboards:
   default:
@@ -56,4 +56,8 @@ dashboards:
     pop-metrics:
       gnetId: 747
       revision: 2
+      datasource: Prometheus
+    k3s:
+      gnetId: 12869
+      revision: 3
       datasource: Prometheus
