@@ -12,6 +12,13 @@ server:
     kubernetes.io/hostname: "zberry"
   persistentVolume:
     enabled: true
+  resources:
+    limits:
+      cpu: 500m
+      memory: 1024Mi
+    requests:
+      cpu: 500m
+      memory: 1024Mi
 
 extraScrapeConfigs: |
   - job_name: 'speedtest'
@@ -24,4 +31,3 @@ alertmanager:
   enabled: true
   persistentVolume:
     enabled: true
-

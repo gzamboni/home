@@ -1,63 +1,327 @@
 ingress:
-  enabled: true
-  path: /
-  hosts:
-    - grafana.home
+    enabled: true
+    path: /
+    hosts:
+        - grafana.home
 
 adminPassword: admin
 image:
-  tag: 8.1.2
+    tag: 8.1.4
 
 persistence:
-  enabled: true
-  storageClassName: local-path
-  size: 2Gi
+    enabled: true
+    storageClassName: local-path
+    size: 2Gi
 
 datasources:
-  datasources.yaml:
-    apiVersion: 1
-    datasources:
-      - name: Prometheus
-        type: prometheus
-        url: http://prometheus.home
-        isDefault: true
+    datasources.yaml:
+        apiVersion: 1
+        datasources:
+            - name: Prometheus
+              type: prometheus
+              url: http://prometheus.home
+              isDefault: true
 
 dashboardProviders:
-  dashboardproviders.yaml:
-    apiVersion: 1
-    providers:
-      - name: "default"
-        orgId: 1
-        folder: ""
-        type: file
-        disableDeletion: false
-        editable: true
-        options:
-          path: /var/lib/grafana/dashboards/default
+    dashboardproviders.yaml:
+        apiVersion: 1
+        providers:
+            - name: "default"
+              orgId: 1
+              folder: ""
+              type: file
+              disableDeletion: false
+              editable: true
+              options:
+                  path: /var/lib/grafana/dashboards/default
 
 dashboards:
-  default:
-    prometheus-stats:
-      gnetId: 2
-      revision: 2
-      datasource: Prometheus
-    speed-test:
-      gnetId: 14336
-      revision: 2
-      datasource: Prometheus
-    node-exporter:
-      gnetId: 10242
-      revision: 1
-      datasource: Prometheus
-    traefik:
-      gnetId: 4475
-      revision: 5
-      datasource: Prometheus
-    pop-metrics:
-      gnetId: 747
-      revision: 2
-      datasource: Prometheus
-    k3s:
-      gnetId: 12869
-      revision: 3
-      datasource: Prometheus
+    default:
+        prometheus-stats:
+            gnetId: 2
+            revision: 2
+            datasource: Prometheus
+        speed-test:
+            gnetId: 14336
+            revision: 2
+            datasource: Prometheus
+        node-exporter:
+            gnetId: 10242
+            revision: 1
+            datasource: Prometheus
+        traefik:
+            gnetId: 4475
+            revision: 5
+            datasource: Prometheus
+        pop-metrics:
+            gnetId: 747
+            revision: 2
+            datasource: Prometheus
+        k3s:
+            gnetId: 12869
+            revision: 3
+            datasource: Prometheus
+        fast-com:
+            json: |
+                {
+                  "annotations": {
+                      "list": [
+                          {
+                              "builtIn": 1,
+                              "datasource": "-- Grafana --",
+                              "enable": true,
+                              "hide": true,
+                              "iconColor": "rgba(0, 211, 255, 1)",
+                              "name": "Annotations & Alerts",
+                              "target": {
+                                  "limit": 100,
+                                  "matchAny": false,
+                                  "tags": [],
+                                  "type": "dashboard"
+                              },
+                              "type": "dashboard"
+                          }
+                      ]
+                  },
+                  "editable": true,
+                  "gnetId": null,
+                  "graphTooltip": 0,
+                  "id": 7,
+                  "links": [],
+                  "panels": [
+                      {
+                          "aliasColors": {},
+                          "bars": false,
+                          "dashLength": 10,
+                          "dashes": false,
+                          "datasource": null,
+                          "description": "",
+                          "fieldConfig": {
+                              "defaults": {
+                                  "displayName": "Download Speed",
+                                  "unit": "Mbits"
+                              },
+                              "overrides": []
+                          },
+                          "fill": 1,
+                          "fillGradient": 0,
+                          "gridPos": {
+                              "h": 8,
+                              "w": 16,
+                              "x": 0,
+                              "y": 0
+                          },
+                          "hiddenSeries": false,
+                          "id": 2,
+                          "legend": {
+                              "avg": false,
+                              "current": false,
+                              "max": false,
+                              "min": false,
+                              "show": true,
+                              "total": false,
+                              "values": false
+                          },
+                          "lines": true,
+                          "linewidth": 1,
+                          "nullPointMode": "connected",
+                          "options": {
+                              "alertThreshold": true
+                          },
+                          "percentage": false,
+                          "pluginVersion": "8.1.2",
+                          "pointradius": 2,
+                          "points": false,
+                          "renderer": "flot",
+                          "seriesOverrides": [],
+                          "spaceLength": 10,
+                          "stack": false,
+                          "steppedLine": false,
+                          "targets": [
+                              {
+                                  "exemplar": true,
+                                  "expr": "avg(fastcom_download_bytes_second)/100000  ",
+                                  "interval": "",
+                                  "legendFormat": "Mbps",
+                                  "refId": "A"
+                              }
+                          ],
+                          "thresholds": [],
+                          "timeFrom": null,
+                          "timeRegions": [],
+                          "timeShift": null,
+                          "title": "Download Speed (fast.com)",
+                          "tooltip": {
+                              "shared": true,
+                              "sort": 0,
+                              "value_type": "individual"
+                          },
+                          "type": "graph",
+                          "xaxis": {
+                              "buckets": null,
+                              "mode": "time",
+                              "name": null,
+                              "show": true,
+                              "values": []
+                          },
+                          "yaxes": [
+                              {
+                                  "format": "Mbits",
+                                  "label": null,
+                                  "logBase": 1,
+                                  "max": null,
+                                  "min": null,
+                                  "show": true
+                              },
+                              {
+                                  "format": "short",
+                                  "label": null,
+                                  "logBase": 1,
+                                  "max": null,
+                                  "min": null,
+                                  "show": true
+                              }
+                          ],
+                          "yaxis": {
+                              "align": false,
+                              "alignLevel": null
+                          }
+                      },
+                      {
+                          "datasource": null,
+                          "fieldConfig": {
+                              "defaults": {
+                                  "color": {
+                                      "mode": "thresholds"
+                                  },
+                                  "mappings": [],
+                                  "thresholds": {
+                                      "mode": "absolute",
+                                      "steps": [
+                                          {
+                                              "color": "green",
+                                              "value": null
+                                          },
+                                          {
+                                              "color": "red",
+                                              "value": 80
+                                          }
+                                      ]
+                                  },
+                                  "unit": "bool_yes_no"
+                              },
+                              "overrides": []
+                          },
+                          "gridPos": {
+                              "h": 8,
+                              "w": 4,
+                              "x": 16,
+                              "y": 0
+                          },
+                          "id": 6,
+                          "options": {
+                              "reduceOptions": {
+                                  "calcs": [
+                                      "lastNotNull"
+                                  ],
+                                  "fields": "",
+                                  "values": false
+                              },
+                              "showThresholdLabels": false,
+                              "showThresholdMarkers": true,
+                              "text": {}
+                          },
+                          "pluginVersion": "8.1.2",
+                          "targets": [
+                              {
+                                  "exemplar": true,
+                                  "expr": "fastcom_up  ",
+                                  "interval": "",
+                                  "legendFormat": "",
+                                  "refId": "A"
+                              }
+                          ],
+                          "title": "Fast.Com Up",
+                          "type": "gauge"
+                      },
+                      {
+                          "datasource": null,
+                          "fieldConfig": {
+                              "defaults": {
+                                  "color": {
+                                      "mode": "thresholds"
+                                  },
+                                  "mappings": [],
+                                  "thresholds": {
+                                      "mode": "absolute",
+                                      "steps": [
+                                          {
+                                              "color": "red",
+                                              "value": null
+                                          },
+                                          {
+                                              "color": "#EAB839",
+                                              "value": 200
+                                          },
+                                          {
+                                              "color": "green",
+                                              "value": 310
+                                          }
+                                      ]
+                                  },
+                                  "unit": "Mbits"
+                              },
+                              "overrides": []
+                          },
+                          "gridPos": {
+                              "h": 8,
+                              "w": 4,
+                              "x": 20,
+                              "y": 0
+                          },
+                          "id": 4,
+                          "options": {
+                              "colorMode": "value",
+                              "graphMode": "none",
+                              "justifyMode": "auto",
+                              "orientation": "auto",
+                              "reduceOptions": {
+                                  "calcs": [
+                                      "lastNotNull"
+                                  ],
+                                  "fields": "",
+                                  "values": false
+                              },
+                              "text": {},
+                              "textMode": "auto"
+                          },
+                          "pluginVersion": "8.1.2",
+                          "targets": [
+                              {
+                                  "exemplar": true,
+                                  "expr": "avg(fastcom_download_bytes_second)/100000",
+                                  "interval": "",
+                                  "legendFormat": "",
+                                  "refId": "A"
+                              }
+                          ],
+                          "title": "Current Speed",
+                          "type": "stat"
+                      }
+                  ],
+                  "schemaVersion": 30,
+                  "style": "dark",
+                  "tags": [],
+                  "templating": {
+                      "list": []
+                  },
+                  "time": {
+                      "from": "now-1h",
+                      "to": "now"
+                  },
+                  "timepicker": {},
+                  "timezone": "",
+                  "title": "Fast.com Stats",
+                  "uid": "Wszom3S7k",
+                  "version": 1
+                }

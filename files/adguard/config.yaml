@@ -2,8 +2,8 @@ bind_host: 0.0.0.0
 bind_port: 3000
 beta_bind_port: 0
 users:
-- name: admin
-  password: $2a$10$pwXHgtXwuj8r7EnwXCGc.OM9S0ekndg6J0Jkgx8WSPhVDFH1B.rsW
+  - name: admin
+    password: $2a$10$pwXHgtXwuj8r7EnwXCGc.OM9S0ekndg6J0Jkgx8WSPhVDFH1B.rsW
 http_proxy: ""
 language: ""
 rlimit_nofile: 0
@@ -29,20 +29,20 @@ dns:
   ratelimit_whitelist: []
   refuse_any: true
   upstream_dns:
-  - https://dns.cloudflare.com/dns-query
-  - https://dns.google/dns-query
+    - https://dns.cloudflare.com/dns-query
+    - https://dns.google/dns-query
   upstream_dns_file: ""
   bootstrap_dns:
-  - 1.1.1.1
-  - 8.8.8.8
+    - 1.1.1.1
+    - 8.8.8.8
   all_servers: false
   fastest_addr: false
   allowed_clients: []
   disallowed_clients: []
   blocked_hosts:
-  - version.bind
-  - id.server
-  - hostname.bind
+    - version.bind
+    - id.server
+    - hostname.bind
   cache_size: 4194304
   cache_ttl_min: 0
   cache_ttl_max: 0
@@ -62,8 +62,8 @@ dns:
   parental_cache_size: 1048576
   cache_time: 30
   rewrites:
-  - domain: '*.home'
-    answer: 192.168.0.11
+    - domain: "*.home"
+      answer: 192.168.0.11
   blocked_services: []
   customresolver: null
 tls:
@@ -82,22 +82,22 @@ tls:
   certificate_path: ""
   private_key_path: ""
 filters:
-- enabled: true
-  url: https://adguardteam.github.io/AdGuardSDNSFilter/Filters/filter.txt
-  name: AdGuard DNS filter
-  id: 1
-- enabled: true
-  url: https://adaway.org/hosts.txt
-  name: AdAway Default Blocklist
-  id: 2
-- enabled: false
-  url: https://www.malwaredomainlist.com/hostslist/hosts.txt
-  name: MalwareDomainList.com Hosts List
-  id: 4
-- enabled: true
-  url: https://raw.githubusercontent.com/caarlos0/adguard-filters/main/list.txt
-  name: Personal Blocklist
-  id: 5
+  - enabled: true
+    url: https://adguardteam.github.io/AdGuardSDNSFilter/Filters/filter.txt
+    name: AdGuard DNS filter
+    id: 1
+  - enabled: true
+    url: https://adaway.org/hosts.txt
+    name: AdAway Default Blocklist
+    id: 2
+  - enabled: false
+    url: https://www.malwaredomainlist.com/hostslist/hosts.txt
+    name: MalwareDomainList.com Hosts List
+    id: 4
+  - enabled: true
+    url: https://raw.githubusercontent.com/caarlos0/adguard-filters/main/list.txt
+    name: Personal Blocklist
+    id: 5
 whitelist_filters: []
 user_rules: []
 dhcp:
