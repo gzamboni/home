@@ -1,0 +1,13 @@
+image:
+    tag: latest
+    pullPolicy: Always
+
+env:
+    TZ: America/Sao_Paulo
+
+nodeSelector:
+    kubernetes.io/hostname: "zberry"
+
+hostNetwork: true
+
+dnsPolicy: ClusterFirstWithHostNet
