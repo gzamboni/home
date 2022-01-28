@@ -147,14 +147,23 @@ resource "kubernetes_ingress" "monocle_gateway" {
     name      = "monocle-gateway"
     namespace = kubernetes_namespace.monocle.metadata.0.name
 
-    annotations = {
-      "kubernetes.io/ingress.class"    = "traefik"
-      "cert-manager.io/cluster-issuer" = module.cert-manager.cluster_issuer_name
-    }
+    # annotations = {
+    #   "kubernetes.io/ingress.class"            = "traefik"
+    #   "cert-manager.io/cluster-issuer"         = "letsencrypt"
+    #   "certmanager.k8s.io/acme-challenge-type" = "http01"
+    # }
   }
   spec {
+    backend {
+      service_name = kubernetes_service.monocle_gateway.metadata.0.name
+      service_port = 443
+    }
+    tls {
+      hosts       = ["monocle.home"]
+      secret_name = "monocle-zamboni-dev-tls"
+    }
     rule {
-      host = "192.168.0.11.sslip.io"
+      host = "monocle.home"
       http {
         path {
           backend {
