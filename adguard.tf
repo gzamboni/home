@@ -36,7 +36,7 @@ resource "kubernetes_stateful_set" "adguard" {
         host_network = true
 
         node_selector = {
-          "kubernetes.io/hostname" = "zberry3p"
+          "kubernetes.io/hostname" = "zberry"
         }
 
         volume {
@@ -65,7 +65,7 @@ resource "kubernetes_stateful_set" "adguard" {
         container {
           name              = "adguard"
           image             = "adguard/adguardhome:edge"
-          image_pull_policy = "IfNotPresent"
+          image_pull_policy = "Always"
 
           liveness_probe {
             # exec {
